@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Topbar from '../components/Topbar.astro';
+import Hero from '../components/Hero.astro';
+import StatsBar from '../components/StatsBar.astro';
+import Problem from '../components/Problem.astro';
+import SolutionBridge from '../components/SolutionBridge.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import Features from '../components/Features.astro';
+import Proof from '../components/Proof.astro';
+import Testimonials from '../components/Testimonials.astro';
+import FAQObjections from '../components/FAQObjections.astro';
+import SecondaryCTA from '../components/SecondaryCTA.astro';
+import BottomForm from '../components/BottomForm.astro';
+import Footer from '../components/Footer.astro';
+import Popup from '../components/Popup.astro';
+
+const qa = [
+  {
+    q: "What makes Nemroot different from what I've already tried?",
+    a: 'Nemroot was tested at Kayalar Motors, a dealership with the same problem you have. The numbers above are from that dealership. Check them against your own.',
+  },
+  {
+    q: 'How long does it actually take to get up and running?',
+    a: "24 to 48 hours. That's a contract commitment, not a sales estimate. Nothing changes about how your floor runs. Only what happens to a lead after it comes in.",
+  },
+  {
+    q: "What happens if it doesn't work for my dealership?",
+    a: "12-month agreement, 30-day full refund. If it isn't working in the first month, you get your money back and you're done. No contract games, no black box.",
+  },
+];
+---
+
+<BaseLayout
+  title="Nemroot: No Lead Left Behind."
+  description="AI built for car dealerships. Responds in 14 seconds, knows your live inventory, books the appointment. Live in 24 to 48 hours. 30-day full refund."
+>
+  <Topbar />
+
+  <Hero
+    badge="AI Built for Automotive Sales"
+    headline="Every Lead Answered in 14 Seconds. No More Missed Follow-Ups."
+    subheading="One number and one inbox for calls, texts, email and social, with an AI that answers in 14 seconds, knows your live inventory, and keeps following up until there's an appointment on the calendar."
+    ctaLabel="Book a Demo"
+  />
+
+  <StatsBar />
+
+  <Problem
+    eyebrow="The Problem"
+    heading="You paid for the lead."
+    before={[
+      'Someone clicked your ad, filled out a form, sent a Facebook message, or called after hours. <strong>Then it sat there.</strong> No reply for two hours. No follow-up the next day. No appointment.',
+      'Run your own numbers against Kayalar Motors, a Houston dealership already running Nemroot:',
+    ]}
+    statNum="750"
+    statLabel="out of 800 leads never got a real follow-up"
+    after={[
+      "Not because the leads were bad. <strong>Because the response was slow, and the follow-up never happened.</strong> That's the only thing Nemroot exists to fix.",
+    ]}
+  />
+
+  <SolutionBridge
+    eyebrow="One Number. One Inbox."
+    heading="Every lead from every channel, in one place."
+    copy="Every lead from every channel (website, SMS, Facebook, email, phone) in one place. The AI picks up in 14 seconds, knows what's on your lot right now, and keeps following up until the customer books a test drive. Your team takes it from there."
+  />
+
+  <HowItWorks />
+
+  <Features
+    eyebrow="Why Dealers Choose Nemroot"
+    heading="Every feature built to stop lead loss."
+    subcopy="Most dealerships don't lose sales because of inventory. They lose them because of slow response and inconsistent follow-up."
+  />
+
+  <Proof
+    eyebrow="Real Numbers. One Dealership."
+    heading="What it looks like on a real lot."
+    body="These are the last 30 days at Kayalar Motors, a Houston dealership running Nemroot."
+  />
+
+  <Testimonials
+    eyebrow="Dealers Who Made the Switch"
+    heading="Trusted by dealerships that refuse to lose leads."
+  />
+
+  <FAQObjections qa={qa} />
+
+  <SecondaryCTA
+    heading="Your leads are coming in right now."
+    body="The question is whether anyone's answering them."
+    ctaLabel="Book a Demo"
+  />
+
+  <BottomForm subcopy="Three questions for a personalized demo." />
+
+  <Footer />
+
+  <Popup progressive={true} />
+
+  <script>
+    import '../scripts/interactions.js';
+  </script>
+</BaseLayout>
