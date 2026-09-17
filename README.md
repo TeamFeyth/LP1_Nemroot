@@ -1,11 +1,26 @@
 # Nemroot — Landing Page 1 (Astro)
 
-"Every Lead Answered in 14 Seconds" — direct value-prop landing page.
+## Copy policy for this repo
+
+**Every user-visible string on this page is reproduced verbatim from Section 5 of
+the build spec** (`Nemroot_Landing_Pages.md` / `.pdf`). Nothing has been reworded,
+shortened, expanded or "improved". The HTML draft (`lp1-html.html`) was used only
+as the reference for layout, spacing and visual design — where the draft's wording
+differs from the spec, **the spec wins**.
+
+If the copy needs to change, change it in the spec first, then mirror it here.
+`src/pages/index.astro` holds all page copy in one place with comments mapping each
+block back to its spec section number.
+
+Two things reproduced exactly as written in the source document, flagged here so
+nobody thinks they are build errors:
+
+- Bullet 2 reads `Car.com,SMS` (missing space after the comma).
+- Bullet 6 reads `Live in 24 to 48 hours,.` (stray comma before the period).
 
 ## Stack
 
-Astro (static output, no adapter needed) — ships as plain HTML/CSS/JS, works
-out of the box on Cloudflare Pages.
+Astro, static output. Ships plain HTML/CSS/JS — no adapter needed for Cloudflare Pages.
 
 ## Local development
 
@@ -13,70 +28,63 @@ out of the box on Cloudflare Pages.
 npm install
 npm run dev       # http://localhost:4321
 npm run build     # outputs to /dist
-npm run preview   # serve the production build locally
+npm run preview
 ```
 
 ## Deploying to Cloudflare Pages
-
-Connect this repo in Cloudflare Pages and use:
 
 - **Build command:** `npm run build`
 - **Build output directory:** `dist`
 - **Framework preset:** Astro
 
-No environment variables are required for the current build.
+No environment variables required for the current build.
 
 ## Project structure
 
 ```
 src/
-  layouts/BaseLayout.astro   <head> boilerplate, fonts, Meta Pixel, tracking placeholders
-  components/                one component per page section (see Section 5 of the build spec)
-  scripts/interactions.js    popup, progressive reveal, phone formatting, validation, submit
-  styles/global.css          shared design tokens (color/type/radius) + base elements
-  pages/index.astro          assembles the page
+  layouts/BaseLayout.astro   <head>, fonts, Meta Pixel, tracking placeholders
+  components/                one component per spec section
+  scripts/interactions.js    popup, progressive reveal, phone formatting, validation
+  styles/global.css          design tokens + base elements
+  pages/index.astro          ALL PAGE COPY LIVES HERE
 ```
 
-## What's already wired up
+## What's implemented
 
-- **Meta Pixel** (`2302599970275699`) — loaded in `<head>`, fires `PageView` on load and a
-  `Lead` event on every successful form submit (hero / bottom / popup).
-- **Popup triggers** — desktop exit-intent + mobile scroll-depth (>65%), each firing **at most
-  once per browser session** (`sessionStorage`). Manual "Book a Demo" clicks always open it
-  regardless of session state. This closes the gap flagged in the build doc for this page.
-- **Progressive reveal in the popup** — seats → leads + ad platforms → name/phone/dealership,
-  per the spec. (Not applied to the hero/bottom forms — the spec only calls for it in the popup.)
-- **TCPA/SMS consent checkbox** — added to all three form instances with standard consent
-  copy, since the doc flagged phone numbers being collected with no consent language. **Legal/
-  compliance should review and approve the exact wording** before launch.
-- **Hidden fields** on every form: `form_source` (hero/bottom/popup), `page_url`, `timestamp`,
-  and `utm_source/medium/campaign/content/term` (read from the query string) — ready for
-  whenever the CRM integration is built.
-- **Inline success state** — since there's no CRM endpoint or thank-you URL yet, a valid
-  submit swaps the form for an on-page confirmation message instead of redirecting.
-- Footer phone number is a working `tel:` link. Phone inputs auto-format as you type.
-- Added the "Solution Bridge" section (eyebrow "One Number. One Inbox.") — it was present in
-  the copy doc (Section 5, #7) but missing from the original HTML draft.
+- **Meta Pixel** (`2302599970275699`) in `<head>`, `PageView` on load, `Lead` on submit.
+- **Popup** — desktop exit-intent + mobile scroll-depth (>65%), progressive field
+  reveal (seats → leads + platforms → name/phone/dealership), and a
+  **show-once-per-session** rule. This closes the build gap the spec flags in
+  Section 5 / 4. Manual "Book a Demo" clicks always open it.
+- **Form** — exactly the six fields the spec lists, in spec order. No extra fields.
+- **Hidden fields** for the CRM handoff: `form_source` (hero/bottom/popup),
+  `page_url`, `timestamp`, `utm_source/medium/campaign/content/term`.
+- Footer phone is a `tel:` link (spec Section 5 / 2, and Open Item #7).
+- Phone inputs auto-format to `(XXX) XXX-XXXX` as the user types.
 
-## ⚠️ Still needs input before this goes live
+## ⚠️ Open Items — unresolved, carried over from the spec
 
-These were left blank in the build doc and need the client/build owner's answer:
+1. **Confirmation copy and thank-you URL** (spec: "Success Heading / Success Body:
+   blank — not specified"). The form currently shows a minimal placeholder,
+   `Thank you. We'll be in touch shortly.`, marked with a comment in
+   `LeadForm.astro`. **Replace this with approved copy before launch.**
+2. **No SMS/call consent language on any form despite collecting phone numbers.**
+   The spec's own note says consent language "needs to be added and approved" —
+   it has not been written or approved, so nothing has been put on the form. This
+   is a legal/TCPA exposure that should be resolved before paid traffic runs.
+3. Required-field rules and phone validation are "not specified" in the spec. The
+   current build requires all six fields and a 10-digit phone. Confirm.
+4. Privacy Policy, Terms of Service and Sitemap links have no destinations (`#`).
+5. **CRM endpoint** — `sendLeadToCRM()` in `interactions.js` is a no-op stub.
+   Submissions are not stored anywhere yet.
+6. GTM / GA4 / CallRail / Search Console IDs — placeholders are commented into
+   `BaseLayout.astro` at the correct placement. Drop the real IDs in and uncomment.
 
-1. **Domain / subdomain** this deploys to, and the Cloudflare Pages project/worker name.
-2. **CRM endpoint URL, auth, and payload format** — `sendLeadToCRM()` in `interactions.js`
-   is a no-op stub marked with a `TODO` until this exists.
-3. **GTM / GA4 / CallRail / Search Console IDs** — placeholders with the correct placement
-   are already commented into `BaseLayout.astro`; drop the real IDs/snippets in and
-   uncomment.
-4. **Thank-you page URL**, if a redirect is preferred over the inline success message.
-5. **Exact TCPA consent copy** — see above.
-6. **Privacy Policy / Terms of Service / Sitemap** URLs (footer links are `#` placeholders).
+## Meta Conversions API token
 
-## A note on the Meta Conversions API token
-
-The build doc included a Meta Conversions API **access token**. That's a server-side secret,
-not a snippet — it must never ship in client/static code (this project is 100% static, so
-anything in this repo is publicly visible in the browser). It has **not** been placed
-anywhere in this project. When the CRM/CAPI integration is built, store it as an encrypted
-Cloudflare Pages environment variable and call the Conversions API from a server-side
-function (a Cloudflare Pages Function), never from the browser.
+The build doc included a Meta Conversions API **access token**. That is a
+server-side secret and this project is fully static, so anything in this repo is
+publicly visible in the browser. **The token is not in this project.** When the
+CRM/CAPI integration is built, store it as an encrypted Cloudflare Pages
+environment variable and call the Conversions API from a Pages Function.

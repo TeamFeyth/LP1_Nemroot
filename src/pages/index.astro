@@ -1,4 +1,9 @@
 ---
+// ============================================================================
+// LP1 — ALL COPY BELOW IS VERBATIM FROM Section 5 of the build spec
+// (Nemroot_Landing_Pages.md / .pdf). Do not reword. Section numbers in the
+// comments map to the spec's own numbering.
+// ============================================================================
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Topbar from '../components/Topbar.astro';
 import Hero from '../components/Hero.astro';
@@ -15,6 +20,55 @@ import BottomForm from '../components/BottomForm.astro';
 import Footer from '../components/Footer.astro';
 import Popup from '../components/Popup.astro';
 
+// Spec 5 / 8. How It Works — step titles per spec: Receive / Respond / Book / Close
+const steps = [
+  { title: 'Receive', body: 'Lead arrives from any channel: website, SMS, Facebook, email, phone. Captured instantly, nothing missed.' },
+  { title: 'Respond', body: 'Nemroot responds within 14 seconds, day or night. It knows your live inventory and qualifies the lead in the same message.' },
+  { title: 'Book', body: 'Follow-up runs automatically until the customer confirms a test drive. Leads that go quiet get pulled back in without anyone on your team touching it.' },
+  { title: 'Close', body: 'Full context handed off to your salesperson. No lead left behind. Deal gets done.' },
+];
+
+// Spec 5 / 9. Why Dealers Choose Nemroot — bullets verbatim, including the
+// source document's own punctuation ("Car.com,SMS" and "24 to 48 hours,.")
+const bullets = [
+  'Every lead answered before the competition even sees the notification.',
+  'One inbox for all: Cargurus, Autotrader, Car.com,SMS, Facebook, email, calls, and more, all in one place.',
+  'Inventory-aware AI:  When a customer asks about the white F-150 with a tow package under $45k, the AI already knows if you have it.',
+  'Automatic follow-up. No manual work, no forgotten prospects.',
+  "Runs 24/7. The AI doesn't take days off.",
+  'Live in 24 to 48 hours,.',
+];
+
+// Spec 5 / 10. Proof — Real Numbers, One Dealership
+const proofStats = [
+  { num: '14s', label: 'Avg. response time vs. 2+ hr industry avg.' },
+  { num: '1,497', label: 'Leads handled' },
+  { num: '10,073', label: 'AI messages sent, zero manual replies' },
+  { num: '120', label: 'Test drives booked' },
+  { num: '82', label: 'Cars sold' },
+  { num: '4.3★', label: 'Google rating, 592 reviews, +121 since Nemroot' },
+];
+
+// Spec 5 / 11. Testimonials
+const testimonials = [
+  {
+    quote: 'We have seen a twofold increase in sales and incoming customers. All dealers should switch to this system.',
+    name: 'Sertwin LLC',
+    role: 'Owner · Sertwin Automotive Group',
+  },
+  {
+    quote: 'Excellent automation software built specifically for car dealerships. Helps streamline lead management and customer follow-ups. Highly recommended.',
+    name: 'CTN Motors',
+    role: 'Automotive Dealership',
+  },
+  {
+    quote: "It's rare to find a platform that understands the specific needs of the automotive industry so well. 5 stars for innovation and reliability.",
+    name: 'SofTech Texas',
+    role: 'Automotive Technology Group',
+  },
+];
+
+// Spec 5 / 12. FAQ
 const qa = [
   {
     q: "What makes Nemroot different from what I've already tried?",
@@ -47,45 +101,57 @@ const qa = [
   <StatsBar />
 
   <Problem
-    eyebrow="The Problem"
+    eyebrow="THE PROBLEM"
     heading="You paid for the lead."
     before={[
-      'Someone clicked your ad, filled out a form, sent a Facebook message, or called after hours. <strong>Then it sat there.</strong> No reply for two hours. No follow-up the next day. No appointment.',
+      'Someone clicked your ad, filled out a form, sent a Facebook message, or called after hours. Then it sat there. No reply for two hours. No follow-up the next day. No appointment.',
       'Run your own numbers against Kayalar Motors, a Houston dealership already running Nemroot:',
     ]}
     statNum="750"
     statLabel="out of 800 leads never got a real follow-up"
     after={[
-      "Not because the leads were bad. <strong>Because the response was slow, and the follow-up never happened.</strong> That's the only thing Nemroot exists to fix.",
+      "Not because the leads were bad. Because the response was slow, and the follow-up never happened. That's where Nemroot helps.",
     ]}
   />
 
   <SolutionBridge
-    eyebrow="One Number. One Inbox."
+    eyebrow="ONE NUMBER. ONE INBOX."
     heading="Every lead from every channel, in one place."
     copy="Every lead from every channel (website, SMS, Facebook, email, phone) in one place. The AI picks up in 14 seconds, knows what's on your lot right now, and keeps following up until the customer books a test drive. Your team takes it from there."
   />
 
-  <HowItWorks />
+  <HowItWorks
+    eyebrow="HOW IT WORKS"
+    heading="From lead to appointment, without lifting a finger."
+    steps={steps}
+  />
 
   <Features
-    eyebrow="Why Dealers Choose Nemroot"
+    eyebrow="WHY DEALERS CHOOSE NEMROOT"
     heading="Every feature built to stop lead loss."
     subcopy="Most dealerships don't lose sales because of inventory. They lose them because of slow response and inconsistent follow-up."
+    bullets={bullets}
   />
 
   <Proof
-    eyebrow="Real Numbers. One Dealership."
+    eyebrow="REAL NUMBERS. ONE DEALERSHIP."
     heading="What it looks like on a real lot."
     body="These are the last 30 days at Kayalar Motors, a Houston dealership running Nemroot."
+    stats={proofStats}
+    disclaimer="Results from Kayalar Motors over a 30-day period. Individual results vary."
   />
 
   <Testimonials
-    eyebrow="Dealers Who Made the Switch"
+    eyebrow="DEALERS WHO MADE THE SWITCH"
     heading="Trusted by dealerships that refuse to lose leads."
+    testimonials={testimonials}
   />
 
-  <FAQObjections qa={qa} />
+  <FAQObjections
+    eyebrow="LET'S BE STRAIGHT WITH YOU"
+    heading="Good questions. Honest answers."
+    qa={qa}
+  />
 
   <SecondaryCTA
     heading="Your leads are coming in right now."
@@ -93,7 +159,11 @@ const qa = [
     ctaLabel="Book a Demo"
   />
 
-  <BottomForm subcopy="Three questions for a personalized demo." />
+  <BottomForm
+    eyebrow="GET A LIVE DEMO"
+    heading="See what it looks like on your lot."
+    subcopy="Three questions for a personalized demo."
+  />
 
   <Footer />
 
